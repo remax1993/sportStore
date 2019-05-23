@@ -1,0 +1,62 @@
+<div class="row">
+    <div class="navbar navbar-dark bg-dark w-100">
+        <a href="#" class="navbar-brand">SPORTS STORE</a>
+        <cart-summary></cart-summary>
+    </div>
+</div>
+<div class="row">
+    <div class="col-3 text-white mt-3">
+        <button class="btn btn-block btn-primary" (click)="changeCategory()">
+            Home
+        </button>
+        <button *ngFor="let cat of categories" class="btn btn-primary btn-block"
+            [class.active]="cat==selectedCategory" (click)="changeCategory(cat)"
+        >
+            {{cat}}
+        </button>
+    </div>
+    <div class="col-9 p-2">
+        <div class="col-9 p-0">
+            <div *ngFor="let product of products" class="card mt-2">
+                <div class="card-header d-flex justify-content-between">
+                    <h4>{{product.name}}</h4>
+                    <span class="badge-pill badge-primary h-100 font-weight-bold">{{product.price | currency:"USD":true:"2.2-2"}}</span>
+                </div>
+                <div class="card-text p-2 d-flex justify-content-between align-items-baseline">
+                    <p>{{product.description}}</p>
+                    <button class="btn btn-success btn-sm" (click)="addProductToCart(product)">
+                        Add To Cart
+                    </button>
+                </div>
+            </div>
+
+            <div class="d-flex mt-4 justify-content-between">
+                <div class="form-inline">
+                    <select name="" class="form-control" [value]="productPerPage"
+                            (change)="changePageSize($event.target.value)"
+                    >
+                        <option value="3">3 per page</option>
+                        <option value="4">4 per page</option>
+                        <option value="6">6 per page</option>
+                        <option value="8">8 per page</option>
+                    </select>
+                </div>
+
+                <div class="btn-group">
+                    <!--<button *ngFor="let page of pageNumbers; let idx = index" (click)="changePage(page)"
+                            class="btn btn-primary" [class.active]="page == selectedPage"
+                    >
+                        {{page}} ({{idx+1}})
+                    </button>-->
+                    <button *counter="let page of pageCount" (click)="changePage(page)"
+                        class="btn btn-primary" [class.active]="page == selectedPage"
+                    >
+                        {{page}}
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
